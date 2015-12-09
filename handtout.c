@@ -103,6 +103,13 @@ void HandlerTimeout( void )
          ko->r999 = 1;
       }
       outpack0.cr_com++;
+	  
+	  stat.link=mode.scan1=mode.scan2=0; //отключение сканирование с приходом новой команды	
+	  mode.rli1=mode.rli2=0; //отключение сканирование с приходом новой команды	
+	  mode.n_rli1=mode.n_rli2=0;	
+	  mode.n_scan1=mode.n_scan2=0;	
+	  mode.scan_p1=mode.scan_p2=0;	
+	  
       ResetBuffers();
       ControlLed1( 0 );
       ControlLed2( 0 );

@@ -14,7 +14,7 @@ int HandlerInBuf4( void )
    static struct packet34 *pack;
    unsigned short n;
    int i;
-	printf("HIB4\n");
+	//printf("HIB4\n");
    if( verbose > 1 ) {
       printf( "HandlerInBuf4: save-load=%d.\n", inbuf4.save - inbuf4.load );
    }

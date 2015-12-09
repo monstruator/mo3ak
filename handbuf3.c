@@ -15,7 +15,7 @@ int HandlerInBuf3( void )
    unsigned short n;
    int i;
 
-	printf("HIB3\n");
+	//printf("HIB3\n");
    if( verbose > 1 ) {
       printf( "HandlerInBuf3: save-load=%d.\n", inbuf3.save - inbuf3.load );
    }

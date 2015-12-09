@@ -52,9 +52,10 @@
    extern int HandlerCmd95mo3a( int , int );
    extern int HandlerCmd96mo3a( int , int );
    extern int HandlerCmd101mo3a( int , int );
-   extern int HandlerCmd102mo3a( int , int );
+   extern int HandlerCmd102mo3a( int , int , int );
    extern int HandlerCmd103mo3a( int , int , int, int );
    extern int HandlerCmd104mo3a( int, int, int );
+   extern int HandlerCmd115mo3a( int, int, int );
 
 #endif
 

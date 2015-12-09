@@ -49,6 +49,10 @@
       unsigned int mn1: 1;
       unsigned int scan1: 1;
       unsigned int scan2: 1;
+	  
+	  unsigned int scan_p1: 1; //passive
+      unsigned int scan_p2: 1; //passive
+	  
       unsigned int rli1: 1;
       unsigned int rli2: 1;
       unsigned int recv3: 1;
@@ -59,6 +63,40 @@
       int addr1;
       int addr2;
       int addr3;
+      
+      unsigned short a0: 4;
+      unsigned short a1: 4;
+      unsigned short a2: 4;
+      unsigned short a3: 4;
+	  
+	  unsigned short a4: 4;
+      unsigned short a5: 4;
+      unsigned short p0: 4;
+      unsigned short p1: 4;
+	  
+      unsigned short p2: 4;
+      unsigned short p3: 4;
+      unsigned short p4: 4;
+      unsigned short p5: 4;
+
+      unsigned short cf1_svch1[10];  //סכמגא 1-10 קפ1
+      unsigned short cf2_svch1[5];  //סכמגא 1-5 קפ2
+
+      unsigned short cf1_svch2[10];  //סכמגא 1-5 קפ1
+      unsigned short cf2_svch2[5];  //סכמגא 1-5 קפ2
+      unsigned short no_num1;  //kol-vo form3 NO,REO po 1 svch
+	  unsigned short no_num2;  //kol-vo form3 NO,REO po 2 svch
+		short prm1; //chastota 1 cpp priem
+		short prm2; //chastota 2 cpp
+		short prd1; //chastota 1 cpp pereda4a
+		short prd2; //chastota 2 cpp
+	  
+		short n_rli1; //kol-vo oprsov po rli1
+		short n_rli2; //
+
+		short n_scan1; //
+		short n_scan2; //
+
    };
 
 //------------------- Constants ------------------
@@ -72,6 +110,9 @@
    #define KRK_DATA_OK 6
    #define KRK_CMD_OK 7
    #define KRK_LINK_OK 8
+   #define KRK_SWITCH_TRANS 9
+   #define KRK_DATA_AND_TRANS 10
+   #define KRK_SMS_OK 15
 
 //-------------------- Buffers -------------------
 
@@ -164,7 +205,7 @@
    struct formrls {
       short num_out;
       short num_in;
-      double time;
+      int time;
       float car_freq;
       float imp_freq;
       float inp_len;
@@ -184,11 +225,12 @@
       unsigned short cr_com;
       short num_com;
       int a_params[5];
-      int pr_bearing;
+      short pr_bearing;
       float p;
       float k;
       short nform;
       struct formrls form[3];
+	  char sms[80];
    };
 
    struct packusoi {
@@ -235,7 +277,7 @@
             short sach18[6];
             unsigned short nword;
             short form1[10];
-            short form4[1100];
+            short form4[1200];
          } svch1_reo;
          struct {
             unsigned short cr;
@@ -269,7 +311,7 @@
             short sach18[6];
             unsigned short nword;
             short form1[10];
-            short form4[1100];
+            short form4[1200];
          } svch2_reo;
          struct {
             unsigned short cr;
@@ -306,10 +348,17 @@
             short form4[88];
          } r999_reo;
          struct {
+	        unsigned short cr;
             unsigned short sach18;
             short nform;
             struct formrls form[3];
          } r999_cu2;
+		 struct {
+            unsigned short cr;
+            short sach18[6];
+            unsigned short nword;
+            char sms[80];           
+         } r999_sms;
       };
    };
 
@@ -653,22 +702,26 @@
       unsigned short r20: 16;
    };
 
-   struct form199 {
-      struct sac s;
+   struct form199_dmv {
+      struct sac s;  			//6 short
       unsigned short t1: 8;
       unsigned short t2: 8;
+
       unsigned short pn: 8;
       unsigned short kfs: 8;
+
       unsigned short v1_0: 4;
       unsigned short v1_1: 4;
       unsigned short v1_2: 4;
       unsigned short v1_3: 4;
+
       unsigned int v2_0: 6;
       unsigned int v2_1: 6;
       unsigned int v2_2: 7;
       unsigned int r11: 1;
       unsigned int v3_0: 6;
       unsigned int v3_1: 6;
+
       unsigned short v3_2: 8;
       unsigned short r12: 8;
       unsigned short r13: 16;
@@ -682,6 +735,45 @@
       unsigned short f1[8];
    };
 
+   
+    struct form199 {
+      struct sac s;  			//6 short
+      unsigned short f193[6];  //סכמגא 7-12 פ193
+      unsigned short cf1[10];  //סכמגא 1-10 קפ1
+      unsigned short cf2[5];  //סכמגא 1-5 קפ2
+   };
+
+   
+     struct form18 {
+      struct sac s;  			//6 short
+	  short fsn; //kol-vo slov v soowenii
+      unsigned short cf1[10];  //סכמגא 1-10 קפ1
+      unsigned short cf2[5];  //סכמגא 1-5 קפ2
+      unsigned short cf3[1100];  //סכמגא 1-11 קפ3
+   };
+
+   struct form18a {
+      struct sac s;  			//6 short
+	  short fsn; //kol-vo slov v soowenii
+      unsigned short cf1[10];  //סכמגא 1-10 קפ1
+      unsigned short cf3[1100];  //סכמגא 1-11 קפ3
+   };
+
+   struct form18b {
+      struct sac s;  			//6 short
+	  short fsn; //kol-vo slov v soowenii
+      unsigned short cf3[1100];  //סכמגא 1-10 קפ3
+   };
+
+
+   struct form_reo {
+      struct sac s;  			//6 short
+	  short fsn; //kol-vo slov v soowenii
+      unsigned short cf1[10];  //סכמגא 1-10 קפ1
+      unsigned short cf2[1200];  //סכמגא 1-11 קפ3
+   };
+
+   
    struct fomr1n {
       unsigned short r1: 4;
       unsigned short tps: 1;
