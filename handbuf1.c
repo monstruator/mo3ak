@@ -733,7 +733,7 @@ int SendOutPack1( void )
       memcpy( &outbuf1.data[j], outpack1.buf[i].data, outpack1.buf[i].size );
       outbuf1.save += outpack1.buf[i].size;
       outpack1.nload++;
-      if( verbose > 1 ) {
+      if( verbose > 0 ) {
 			h12 = (struct header12 *)outpack1.buf[i].data;
 			//SetHeader12( h12 );
 	        printf( "SendOutPack1: size=%d cmd=%08x kvi=%d kzo=%d.\n", 

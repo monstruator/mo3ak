@@ -49,6 +49,19 @@ void HandlerTimeout( void )
       }
    }
 
+   if( mode.rli2 ) {
+		printf("HandlerTimeout nload=%d nsave=%d\n",outpack2.nload,outpack2.nsave);
+      if( outpack2.nload == outpack2.nsave ) {
+         outpack2.nload = outpack2.nsave = outpack2.blk = count2 = 0;
+         HandlerCmdRli2();
+      } else {
+         if( ++count2 > 24 ) {
+            outpack2.nload = outpack2.nsave = outpack2.blk = count2 = 0;
+         }
+      }
+   }
+   
+   
    outpack1.blk &= ~BUF3KIT_BLKT;
    outpack2.blk &= ~BUF3KIT_BLKT;
    outpack3.blk &= ~BUF3KIT_BLKT;

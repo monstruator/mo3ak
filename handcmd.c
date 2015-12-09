@@ -244,13 +244,15 @@ int HandlerCmdScan1( void )
    f11->ku9z9 = 1;
    f11->ku9z10 = 1;
    f11->ku10 = 1;
-   f11->ku3 = 1;
+   f11->ku3 = 0; //tki
    f11->ku2=1; //prm onn
+   f11->ku5 = mode.prd1; //PRD-M1
+   f11->ku6 = mode.prm1; //PRM-M7
    memcpy( (char *)&form11k1, (char *)f11, sizeof(struct form11) );
    outpack1.buf[i].size = sizeof(struct header12) + sizeof(struct form11);
    outpack1.buf[i].cmd = BUF3KIT_CMD_BLK1;
    outpack1.nsave++;
-
+	SendOutPack1();
    return( 0 );
 }
 
@@ -265,7 +267,7 @@ int HandlerCmdRli1( void )
       printf( "HandlerCmdRli1: %d \n",mode.n_rli1 );
    }
 	mode.n_rli1++;
-	if (mode.n_rli1>70)  //30
+	if (mode.n_rli1>160)  //30
 		{
 			outpack0.svch1.nword=0;
 			mode.n_rli1=mode.rli1=0; //завершение после 25 опросов
@@ -332,7 +334,7 @@ int HandlerCmdRli1( void )
    f11->ku9z9 = 1;
    f11->ku9z10 = 1;
    f11->ku10 = 1;
-   f11->ku3 = 1;
+   f11->ku3 = 1;//rli=1
    f11->ku2=1; //prm onn
 
    memcpy( (char *)&form11k1, (char *)f11, sizeof(struct form11) );
@@ -386,6 +388,7 @@ int HandlerCmdRli2( void )
 		   f11->ku1=0; //prd off
 		   f11->ku2=0; //prm off
 		   f11->ku9z10 = 1;
+		   f11->ku2=1; //prm onn
 		//   f11->ku10 = 1;
 		   memcpy( (char *)&form11k2, (char *)f11, sizeof(struct form11) );
 		   outpack2.buf[i].size = sizeof(struct header12) + sizeof(struct form11);
@@ -422,7 +425,7 @@ int HandlerCmdRli2( void )
    f11->ku9z9 = 1;
    f11->ku9z10 = 1;
    f11->ku10 = 1;
-   f11->ku3 = 1;
+   f11->ku3 = 1; //rli=1
    f11->ku2=1; //prm onn
 
    memcpy( (char *)&form11k2, (char *)f11, sizeof(struct form11) );
@@ -518,12 +521,12 @@ int HandlerCmdScan2( void )
    f11->ku9z10 = 1;
    f11->ku10 = 1;
    f11->ku2=1; // priem onn
-
+   f11->ku3=0;//tki
    memcpy( (char *)&form11k2, (char *)f11, sizeof(struct form11) );
    outpack2.buf[i].size = sizeof(struct header12) + sizeof(struct form11);
    outpack2.buf[i].cmd = BUF3KIT_CMD_BLK2;
    outpack2.nsave++;
-
+	SendOutPack2();
 /* kzo7_2(); */
    return( 0 );
 
