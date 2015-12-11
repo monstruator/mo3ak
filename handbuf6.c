@@ -143,7 +143,7 @@ int HandlerInPack6( const void *buf, unsigned len )
    unsigned sn;
    char b[sizeof(struct form199_dmv)];
 
-   if( verbose > 1 ) {
+   if( verbose > 0 ) {
       printf( "HandlerInPack6(%d):", len );
       for( i = 0; i < len; i++ ) printf( " %02x", *( (char *)buf + i ) );
       printf( "\n" ); 
@@ -170,7 +170,7 @@ int HandlerInPack6( const void *buf, unsigned len )
       sv = s->v0 + s->v1 * 10 + s->v2 * 100 + s->v3 * 1000;
       sn = *(short *)( (char *)s + sizeof(struct sac) );
       if( verbose > 0 ) {
-		 printf("sa=%d\n",sa);
+		 //printf("sa=%d\n",sa);
          printf( "R999(%d): SAC f=%d k=%d a=%d p=%d r=%d v=%d n=%d.\n",  n, s->nf, s->kvi, sa, sp, sr, sv, sn );
          printf( "R999: MODE recv=%d addr=%d sa=%d .\n",  mode.recv3, mode.addr3, sa );
       }
@@ -545,7 +545,7 @@ int SendOutPack6( void )
       memcpy( &outbuf6.data[j], outpack6.buf[i].data, outpack6.buf[i].size );
       outbuf6.save += outpack6.buf[i].size;
       outpack6.nload++;
-      if( verbose > 1 ) {
+      if( verbose > 0 ) {
          printf( "SendOutPack6: size=%d cmd=%08x.\n", 
             outpack6.buf[i].size, outpack6.buf[i].cmd );
 		for(i1=0;i1<outpack6.buf[i].size;i1++) printf("%x ",outbuf6.data[j+i1]); printf("\n");
