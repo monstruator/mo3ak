@@ -158,10 +158,15 @@ int HandlerInPack6( const void *buf, unsigned len )
       if( verbose > 0 ) printf( "R999: Output abort (41)!\n" );
       break;
    case 0x90:
-      outpack0.link = KRK_DATA_OK;
-      n = pack->data[0];
+      if (stat.link) outpack0.link = KRK_LINK_OK;
+	  else outpack0.link = KRK_SMS_OK;
+	  ResetBuffers();
+      outpack0.cr_com++;
+	  if ( verbose > 0 ) printf( "KRK_LINK_OK!\n" );
+      
+      /*n = pack->data[0];
       if( n == 0 ) n = 256;
-      s = (struct sac *)&pack->data[1];
+      s = x(struct sac *)&pack->data[1];
       sa = s->a0 + s->a1 * 10 + s->a2 * 100 + s->a3 * 1000 + s->a4 * 10000 + 
          s->a5 * 100000;
       sp = s->p0 + s->p1 * 10 + s->p2 * 100 + s->p3 * 1000 + s->p4 * 10000 + 
@@ -399,6 +404,7 @@ int HandlerInPack6( const void *buf, unsigned len )
          WriteC2( f199, sizeof(struct form199_dmv) );
          count.out6++;
       }
+	  */
       break;
    case 0xf0:
       if( verbose > 0 ) {
@@ -500,7 +506,7 @@ int WriteC2( const void *buf, unsigned len )
 		outpack6.nsave++;
 	}
 	
-	  i = outpack6.nsave;
+	 /* i = outpack6.nsave;
       outpack6.buf[i].size = 0;
       outpack6.buf[i].cmd = BUF3KIT_CMD_BLKT;
       outpack6.nsave++;
@@ -527,7 +533,7 @@ int WriteC2( const void *buf, unsigned len )
       outpack6.buf[i].size = sizeof(struct header56) + 2;
       outpack6.buf[i].cmd = BUF3KIT_CMD_BLK6;
       outpack6.nsave++;
-
+*/
    SendOutPack6();
    return( 0 );
 }
