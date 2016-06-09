@@ -10,7 +10,7 @@
       unsigned int in;
       unsigned int link;
       unsigned int flag;
-      unsigned int rli;	  //режим запросов РЛИ
+      unsigned int rli;	  
    };
 
    #define TIMEOUT_OFF 0
@@ -214,6 +214,7 @@
       float targ_bear;
       float bear_sko;
       float targ_vip;
+	  float D_NRLS; //new ???
       float latitude;
       float longitude;
       float course;
