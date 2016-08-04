@@ -525,15 +525,9 @@ if ((mode.rli2)||(mode.scan2))
             break;
          }
          break;
-      case 51:
-      case 52:
-      case 53:
-      case 54:
-      case 55:
-      case 56:
-      case 57:
-      case 58:
-      case 59:
+      case 51:   case 52:   case 53:
+      case 54:   case 55:   case 56:
+      case 57:   case 58:   case 59:
          outpack0.kzv = 1;
          outpack0.cr_com++;
          break;
@@ -601,10 +595,8 @@ if ((mode.rli2)||(mode.scan2))
             break;
          }
          break;
-      case 66:
-      case 67:
-      case 68:
-      case 69:
+      case 66:   case 67:
+      case 68:   case 69:
          outpack0.kzv = 1;
          outpack0.cr_com++;
          break;
@@ -667,10 +659,8 @@ if ((mode.rli2)||(mode.scan2))
             break;
          }
          break;
-      case 76:
-      case 77:
-      case 78:
-      case 79:
+      case 76:   case 77:
+      case 78:   case 79:
          outpack0.kzv = 1;
          outpack0.cr_com++;
          break;
@@ -714,12 +704,8 @@ if ((mode.rli2)||(mode.scan2))
             break;
          }
          break;
-      case 84:
-      case 85:
-      case 86:
-      case 87:
-      case 88:
-      case 89:
+      case 84:   case 85:   case 86:
+      case 87:   case 88:   case 89:
          outpack0.kzv = 1;
          outpack0.cr_com++;
          break;

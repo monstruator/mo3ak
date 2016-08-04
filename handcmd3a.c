@@ -1364,7 +1364,7 @@ int HandlerCmd18mo3a( int param0, int param1 )
 
 //---------- Outpack6 (cmd18) ----------
 
- /*  if( param0 ) {
+   if( param0 ) {
       ControlLed4( 1 );
 
       i = outpack6.nsave;
@@ -1387,7 +1387,7 @@ int HandlerCmd18mo3a( int param0, int param1 )
 
       stat.out |= FLAG_BUF6;
    } 
-*/
+
 //---------- Other (Cmd18) ----------
 
    if( param0 ) {
@@ -4206,7 +4206,7 @@ int HandlerCmd93mo3a( int param0, int param1, int param2, int param3 )
 
    if( param0 == 2 ) { //DMV (R-999)
 
-    /*  i = outpack6.nsave;
+      i = outpack6.nsave;
       p56 = (struct packet56 *)outpack6.buf[i].data;
       p56->head.code = 0xc0;
       p56->data[0] = r999cfg.sp;
@@ -4222,7 +4222,7 @@ int HandlerCmd93mo3a( int param0, int param1, int param2, int param3 )
       outpack6.buf[i].size = sizeof(struct header56) + 2;
       outpack6.buf[i].cmd = BUF3KIT_CMD_BLK6;
       outpack6.nsave++;
-	  */
+	  
       i = outpack6.nsave;
       p56 = (struct packet56 *)outpack6.buf[i].data;
       p56->head.code = 0x80;
@@ -4291,7 +4291,7 @@ int HandlerCmd93mo3a( int param0, int param1, int param2, int param3 )
 //      outpack6.buf[i].size = 0;
 //      outpack6.buf[i].cmd = BUF3KIT_CMD_END;
 //      outpack6.nsave++;
-/*	  i = outpack6.nsave;
+	 i = outpack6.nsave;
       outpack6.buf[i].size = 0;
       outpack6.buf[i].cmd = BUF3KIT_CMD_BLKT;
       outpack6.nsave++;
@@ -4312,7 +4312,7 @@ int HandlerCmd93mo3a( int param0, int param1, int param2, int param3 )
       outpack6.buf[i].size = sizeof(struct header56) + 2;
       outpack6.buf[i].cmd = BUF3KIT_CMD_BLK6;
       outpack6.nsave++;
-*/
+
       stat.out |= FLAG_BUF6;
       stat.link |= FLAG_BUF6;
       ControlLed4( 1 );
@@ -6334,7 +6334,7 @@ int HandlerCmd96mo3a( int param0, int param1 )
 
    if( param0 == 2 ) { //DMV (R-999)
 
-   /*   i = outpack6.nsave;
+      i = outpack6.nsave;
       p56 = (struct packet56 *)outpack6.buf[i].data;
       p56->head.code = 0xc0;
       p56->data[0] = r999cfg.sp;
@@ -6350,7 +6350,7 @@ int HandlerCmd96mo3a( int param0, int param1 )
       outpack6.buf[i].size = sizeof(struct header56) + 2;
       outpack6.buf[i].cmd = BUF3KIT_CMD_BLK6;
       outpack6.nsave++;
-*/
+
       i = outpack6.nsave;
       p56 = (struct packet56 *)outpack6.buf[i].data;
       p56->head.code = 0x80;
@@ -9735,7 +9735,6 @@ int HandlerCmd115mo3a( int param0, int param1, int param2 )
    }
 
 //---------- Outpack6 (cmd115mo3a) ----------
-
    i = outpack6.nsave;
    p56 = (struct packet56 *)outpack6.buf[i].data;
    p56->head.code = 0xc0;
@@ -9756,13 +9755,11 @@ int HandlerCmd115mo3a( int param0, int param1, int param2 )
    i = outpack6.nsave;
    p56 = (struct packet56 *)outpack6.buf[i].data;
    p56->head.code = 0x80;
-   p56->data[0] = 4 + sizeof(struct sac) + sizeof(short) + 
-      sizeof(struct formrls) * inpack0.nform;
+   p56->data[0] = 4 + sizeof(struct sac) + sizeof(short) + 80;
    p56->data[1] = 0xd5;
    p56->data[2] = 0x00;
    p56->data[3] = 0x30;
-   p56->data[4] = sizeof(struct sac) + sizeof(short) + 
-      sizeof(struct formrls) * inpack0.nform;
+   p56->data[4] = sizeof(struct sac) + sizeof(short) + 80;
    f18 = (struct sac *)( outpack6.buf[i].data + sizeof(struct header56) + 5 );
    memset( (char *)f18, 0, sizeof(struct sac) );
    f18->ps = 1;
@@ -9797,15 +9794,22 @@ int HandlerCmd115mo3a( int param0, int param1, int param2 )
    f18->p3 = ( ( param2 % 100000 ) % 10000 ) / 1000;
    f18->p4 = ( param2 % 100000 ) / 10000;
    f18->p5 = param2 / 100000;
-   for(j=0;j<5;j++) 
+ 
+	//printf("SMS out:");	for(j=0;j<80;j++) printf("%c ",inpack0.sms[j]);printf("\n");
+
+ 
+ for(j=0;j<5;j++) 
 	{
 		for(j1=0;j1<16;j1++) in_aes[j1]=inpack0.sms[j1+j*16];
 		Cipher();
 		for(j1=0;j1<16;j1++) inpack0.sms[j1+j*16]=out_aes[j1];		
 	}
 
+	//printf("SMS out aes:");	for(j=0;j<80;j++) printf("%c ",inpack0.sms[j]);printf("\n");
+
    memcpy( (char *)( outpack6.buf[i].data + sizeof(struct header56) + 5 + 
       sizeof(struct sac) + sizeof(short)), (char *)&inpack0.sms[0], 80 );
+	
 	outpack6.buf[i].size = sizeof(struct header56) + 5 + sizeof(struct sac) +
       sizeof(short) + 80;
    outpack6.buf[i].cmd = BUF3KIT_CMD_BLK6;
@@ -9821,17 +9825,25 @@ int HandlerCmd115mo3a( int param0, int param1, int param2 )
    outpack6.buf[i].cmd = BUF3KIT_CMD_BLK6;
    outpack6.nsave++;
 
-   for( j = 0; j < 4; j++ )	BLKT(6);
+   BLKT(6);
+   BLKT(6);
+	  
+	  i = outpack6.nsave;
+      p56 = (struct packet56 *)outpack6.buf[i].data;
+      p56->head.code = 0xc0;
+      p56->data[0] = r999cfg.sp;
+      outpack6.buf[i].size = sizeof(struct header56) + 1;
+      outpack6.buf[i].cmd = BUF3KIT_CMD_BLK6;
+      outpack6.nsave++;
 
-   i = outpack6.nsave;
-   outpack6.buf[i].size = 0;
-   outpack6.buf[i].cmd = BUF3KIT_CMD_KRK | BUF3KIT_CMD_END;
-   if( !mode.mo1a && mode.mn1 ) {
-      outpack6.buf[i].param = KRK_SWITCH_RECV;
-   } else {
-      outpack6.buf[i].param = KRK_CMD_OK;
-   }
-   outpack6.nsave++;
+      i = outpack6.nsave;
+      p56 = (struct packet56 *)outpack6.buf[i].data;
+      p56->head.code = 0xb0;
+      p56->data[0] = 0x00;
+      p56->data[1] = 0x30;
+      outpack6.buf[i].size = sizeof(struct header56) + 2;
+      outpack6.buf[i].cmd = BUF3KIT_CMD_BLK6;
+      outpack6.nsave++;
 
    stat.out |= FLAG_BUF6;
    ControlLed4( 1 );
