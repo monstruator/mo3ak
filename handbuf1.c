@@ -296,7 +296,7 @@ int HandlerInPack1( struct packet12 *pack, int size )
                fs->nf, fs->kvi, fsa, fsp, fsr, fsv, fsn );
             printf( "SVCH1: MODE scan=%d rli=%d addr=%d.\n",
                mode.scan1, mode.rli1, mode.addr1 );
-          for (i=0;i<203;i++) printf(" %04x ",pack->wf[i]);printf("\n");
+          //for (i=0;i<203;i++) printf(" %04x ",pack->wf[i]);printf("\n");
 
          }
 //         if( ( fsa != mode.addr1 ) || !mode.scan1 ) {
