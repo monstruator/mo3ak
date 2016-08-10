@@ -260,7 +260,8 @@ int HandlerCmd1mo3a( int param1 , int param2 )
    if( verbose > 0 ) {
       printf( "HandlerCmd1mo3a: param1=%08x param2=%08x\n", param1, param2 );
    }
-
+   
+	param2=0;
 //---------- Outpack1 (cmd1) ----------// – Š€
 //5
 	kzo13_1();
@@ -310,7 +311,7 @@ int HandlerCmd1mo3a( int param1 , int param2 )
 	if (param2==0)	//mo1ak
 	{	
 		BU2_K6(0x11); //0x11
-		BU2_K7(0x01); //!!!   1
+		BU2_K7(0x05); //!!!   1
     	stat.out |= FLAG_BUF4;
     	ControlLed3( 1 );
 	}
@@ -3585,6 +3586,7 @@ int HandlerCmd93mo3a( int param0, int param1, int param2, int param3 )
          param0, param1, param2, param3 );
    }
 
+   if (param0==3) param0=0;
 //---------- Outpack1 (cmd93mo3a) ----------
 
    if( (param0 == 0 )||(param0==3)) { //SVC-1
