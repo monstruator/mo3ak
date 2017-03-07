@@ -814,7 +814,7 @@ if ((mode.rli2)||(mode.scan2))
       case 101:
          switch( mode.pr ) {
          case 1:
-            HandlerCmd101mo3a( inpack0.a_params[0], inpack0.a_params[1] );
+            HandlerCmd101mo3a( inpack0.a_params[0], inpack0.a_params[1], inpack0.a_params[2] );
             break;
          default:
             outpack0.kzv = 1;
@@ -931,12 +931,12 @@ int SendOutPack0( void )
 	
 	if (mode.rli1)
 	{
-	   printf("word=%d num=%d rli1\n",outpack0.svch1_rli.nword,outpack0.svch1_rli.num);
+	   if (verbose>1) printf("word=%d num=%d rli1\n",outpack0.svch1_rli.nword,outpack0.svch1_rli.num);
 	   outpack0.svch1_rli.nword=outpack0.svch1_rli.num=0;
 	}
 	if (mode.scan1)
 	{
-	   printf("word=%d no_num=%d \n",outpack0.svch1_no.nword,mode.no_num1);
+	   if (verbose>1) printf("word=%d no_num=%d \n",outpack0.svch1_no.nword,mode.no_num1);
 //	   outpack0.svch1_no.nword=0;
 	}
 	if (mode.rli2)

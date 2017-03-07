@@ -365,10 +365,10 @@ int HandlerInPack2( struct packet12 *pack, int size )
 							if (outpack0.svch2_no.nword==0) 
 								outpack0.svch2_no.nword += 10; 
 
-							if (f18->cf2[0]>>11 == 2) // est' Form2
+							if (f18->cf1[0]>>11 == 2) // est' Form2
 							{
 								printf("est' form12\n");
-								for(i=0;i<5;i++) outpack0.svch2_no.form2[i]=f18->cf2[i];
+								for(i=0;i<5;i++) outpack0.svch2_no.form2[i]=f18->cf1[i];
 								if (outpack0.svch2_no.nword==10) 
 									outpack0.svch2_no.nword += 5; 
 
@@ -381,7 +381,7 @@ int HandlerInPack2( struct packet12 *pack, int size )
 								}	
 							}
 							else
-							if (f18->cf2[0]>>11 == 3) // est' Form3 bez Form2
+							if (f18->cf1[0]>>11 == 3) // est' Form3 bez Form2
 							{
 								printf("est' form3 bez form2 %d \n",outpack0.svch2.nword);
 								if (outpack0.svch2_no.form2[0]>>11 == 2) // bil Form2
@@ -447,7 +447,7 @@ int HandlerInPack2( struct packet12 *pack, int size )
 							outpack0.svch2_no.nword += 10; 
 
 						for(i=0;i<freo->fsn - 10;i++) 
-							outpack0.svch2.word[outpack0.svch2.nword+i]=freo->cf2[i];
+							outpack0.svch2.word[outpack0.svch2.nword+i]=freo->cf4[i];
 						outpack0.svch2_no.nword += freo->fsn-10; //
 						printf("nword=%d reo kvi=7 recieve\n",outpack0.svch2_no.nword);					
 

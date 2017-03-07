@@ -26,7 +26,7 @@ void HandlerTimeout( void )
    }
 
    if( mode.rli1 ) {
-		printf("HandlerTimeout nload=%d nsave=%d\n",outpack1.nload,outpack1.nsave);
+		if (verbose>1) printf("HandlerTimeout nload=%d nsave=%d\n",outpack1.nload,outpack1.nsave);
       if( outpack1.nload == outpack1.nsave ) {
          outpack1.nload = outpack1.nsave = outpack1.blk = count1 = 0;
          HandlerCmdRli1();

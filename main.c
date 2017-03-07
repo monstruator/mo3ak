@@ -140,7 +140,7 @@ void main( int argc, char **argv )
       perror( "OpenDEVnb" );
       exit( EXIT_FAILURE );
    } else {
-      if( verbose > -1 ) {
+      if( verbose > 1 ) {
          printf( "Open device %s.\n", name7 );
       }
    }

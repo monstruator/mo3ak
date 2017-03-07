@@ -172,7 +172,7 @@ int HandlerCmdScan1( void )
    struct form11 *f11;
 //	static short n_scan1; //кол-во повторов скана
 
-   if( verbose > 0 ) {
+   if( verbose > 1 ) {
       printf( "HandlerCmdScan1: %d\n",mode.n_scan1 );
    }
 	mode.n_scan1++;
@@ -263,7 +263,7 @@ int HandlerCmdRli1( void )
    struct form11 *f11;
 	static short n_rli1; //кол-во повторов скана
 
-   if( verbose > 0 ) {
+   if( verbose > 1 ) {
       printf( "HandlerCmdRli1: %d \n",mode.n_rli1 );
    }
 	mode.n_rli1++;

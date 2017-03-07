@@ -270,7 +270,7 @@ int SendOutPack4( void )
       memcpy( &outbuf4.data[j], outpack4.buf[i].data, outpack4.buf[i].size );
       outbuf4.save += outpack4.buf[i].size;
       outpack4.nload++;
-      if( verbose > -1 ) {
+      if( verbose > 1 ) {
          printf( "SendOutPack4: size=%d cmd=%08x.\n", 
             outpack4.buf[i].size, outpack4.buf[i].cmd );
       }
