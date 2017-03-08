@@ -169,7 +169,7 @@ int HandlerInPack3( struct packet34 *pack, int size )
    struct sostrts *sr;
    struct errusoi *ko;
 
-   if( verbose > 0 ) {
+   if( verbose > 1 ) {
       printf( "HandlerInPack3: size=%d pream=%04x code=%02x", 
          size, pack->head.pream, pack->head.code );
       for( i = 0; i < size - sizeof(struct header34); i++ ) {
@@ -330,7 +330,7 @@ int SendOutPack3( void )
       memcpy( &outbuf3.data[j], outpack3.buf[i].data, outpack3.buf[i].size );
       outbuf3.save += outpack3.buf[i].size;
       outpack3.nload++;
-      if( verbose > -1 ) {
+      if( verbose > 1 ) {
          printf( "SendOutPack3: size=%d cmd=%08x.", 
          outpack3.buf[i].size, outpack3.buf[i].cmd );
 		 for (i1=0;i1<outpack3.buf[i].size;i1++)
