@@ -931,7 +931,11 @@ int SendOutPack0( void )
 	
 	if (mode.rli1)
 	{
-	   if (verbose>1) printf("word=%d num=%d rli1\n",outpack0.svch1_rli.nword,outpack0.svch1_rli.num);
+	   if (verbose>0)
+			printf("word=%d num=%d str=%d rli1\n",
+				outpack0.svch1_rli.nword,
+				outpack0.svch1_rli.num,
+				(outpack0.svch1_rli.form6[1]&0xFF80)>>7);
 	   outpack0.svch1_rli.nword=outpack0.svch1_rli.num=0;
 	}
 	if (mode.scan1)

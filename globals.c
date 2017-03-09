@@ -142,6 +142,8 @@ void ResetBuffers( void )
    stat.out = stat.in = stat.link = stat.flag = 0;
    tout.stat = tout.count = 0;
    outpack1.nsave = outpack1.nload = outpack1.blk = 0;
+   //memset( (char *)outpack0.svch1.word, 0, sizeof(8164) );
+      
    outpack2.nsave = outpack2.nload = outpack2.blk = 0;
    outpack3.nsave = outpack3.nload = outpack3.blk = 0;
    outpack4.nsave = outpack4.nload = outpack4.blk = 0;

@@ -267,7 +267,7 @@ int HandlerCmdRli1( void )
       printf( "HandlerCmdRli1: %d \n",mode.n_rli1 );
    }
 	mode.n_rli1++;
-	if (mode.n_rli1>160)  //30
+	if (mode.n_rli1>100)  //30
 		{
 			outpack0.svch1.nword=0;
 			mode.n_rli1=mode.rli1=0; //завершение после 25 опросов
