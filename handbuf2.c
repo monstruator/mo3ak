@@ -273,7 +273,6 @@ int HandlerInPack2( struct packet12 *pack, int size )
 		}
 			if ((mode.rli2) || (mode.scan2))
 			{
-				kzo7_2();	
 				//stat.out|=FLAG_BUF1; //не надо т.к. вне команды
 			}
          break;
@@ -595,9 +594,6 @@ int SendSVC2( const void *buf, unsigned len )
    }
 
 //---------- Step-1 ----------
-
-   kzo13_2();
-
    i = outpack2.nsave;
    h12 = (struct header12 *)outpack2.buf[i].data;
    SetHeader12( h12 );
@@ -614,12 +610,7 @@ int SendSVC2( const void *buf, unsigned len )
    outpack2.buf[i].cmd = BUF3KIT_CMD_BLK2;
    outpack2.nsave++;
 
-  kzo7_2();
-
 //---------- Step 2 ----------
-
-   kzo13_2();
-
    i = outpack2.nsave;
    h12 = (struct header12 *)outpack2.buf[i].data;
    SetHeader12( h12 );
@@ -656,14 +647,10 @@ int SendSVC2( const void *buf, unsigned len )
    outpack2.buf[i].cmd = BUF3KIT_CMD_BLK2;
    outpack2.nsave++;
 
-  kzo7_2();
 
 	BLKT(1);	BLKT(1);
 
 //---------- Step 3 ----------
-
-   kzo13_2();
-
    i = outpack2.nsave;
    h12 = (struct header12 *)outpack2.buf[i].data;
    SetHeader12( h12 );
@@ -698,10 +685,7 @@ int SendSVC2( const void *buf, unsigned len )
    outpack2.buf[i].cmd = BUF3KIT_CMD_BLK2;
    outpack2.nsave++;
 
-  kzo7_2();	
-
    SendOutPack2();
-
    return( 0 );
 }
 

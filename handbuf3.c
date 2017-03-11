@@ -184,6 +184,8 @@ int HandlerInPack3( struct packet34 *pack, int size )
    if( ( pack->head.pream == 0x3332 ) && ( size == 6 ) && ( mode.pr == 0 ) )  {
       switch( pack->head.code ) {
       case 0x71:
+		printf("POWER= %x %x \n",pack->data[0],pack->data[1]);
+       
          if( ( pack->data[0] * 256 + pack->data[1] ) < 0xc8 ) {
             outpack0.kzv = 1;
             ko->svc2 = 1;

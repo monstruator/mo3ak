@@ -219,8 +219,6 @@ int HandlerCmdScan1( void )
 		} //завершение после 80 опросов
    ControlLed1( 1 );
 
-	kzo13_1();
-
    i = outpack1.nsave;
    h12 = (struct header12 *)outpack1.buf[i].data;
    SetHeader12( h12 );
@@ -308,8 +306,6 @@ int HandlerCmdRli1( void )
 			return(0);
 		}
    ControlLed1( 1 );
-
-	kzo13_1();	
 
    i = outpack1.nsave;
    h12 = (struct header12 *)outpack1.buf[i].data;
@@ -399,8 +395,6 @@ int HandlerCmdRli2( void )
 			return(0);
 		}
    ControlLed2( 1 );
-
-	kzo13_2();	
 
    i = outpack2.nsave;
    h12 = (struct header12 *)outpack2.buf[i].data;
@@ -495,8 +489,6 @@ int HandlerCmdScan2( void )
 	} //завершение после 80 опросов
    ControlLed2( 1 );
 
-	kzo13_2();
-
    i = outpack2.nsave;
    h12 = (struct header12 *)outpack2.buf[i].data;
    SetHeader12( h12 );
@@ -527,7 +519,6 @@ int HandlerCmdScan2( void )
    outpack2.buf[i].cmd = BUF3KIT_CMD_BLK2;
    outpack2.nsave++;
 	SendOutPack2();
-/* kzo7_2(); */
    return( 0 );
 
 }

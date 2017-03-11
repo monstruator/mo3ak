@@ -168,7 +168,7 @@ int HandlerInPack4( struct packet34 *pack, int size )
    struct sostrts *sr;
    struct errusoi *ko;
 
-   if( verbose > 1 ) {
+   if( verbose > 0 ) {
       printf( "HandlerInPack4: size=%d pream=%04x code=%02x", 
          size, pack->head.pream, pack->head.code );
       for( i = 0; i < size - sizeof(struct header34); i++ ) {
@@ -183,10 +183,12 @@ int HandlerInPack4( struct packet34 *pack, int size )
    if( ( pack->head.pream == 0x3332 ) && ( size == 6 ) )  {
       switch( pack->head.code ) {
       case 0x71:
-         if( ( pack->data[0] * 256 + pack->data[1] ) < 0xc8 ) {
+		printf("POWER= %x %x \n",pack->data[0],pack->data[1]);
+        
+        if( ( pack->data[0] * 256 + pack->data[1] ) < 0xc8 ) {
             outpack0.kzv = 1;
             ko->svc1 = 1;
-         }
+		}
          break;
       case 0x72:
          if( pack->data[1] & 0x01 ) {
