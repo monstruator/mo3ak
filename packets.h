@@ -305,7 +305,7 @@
             unsigned short cr;
             short sach18[6];
             unsigned short nword;
-            short word[4082];           
+            short word[4085];           
          } svch1;
          struct {
             unsigned short cr;
@@ -355,7 +355,7 @@
             unsigned short cr;
             short sach18[6];
             unsigned short nword;
-            short word[4082];           
+            short word[4085];           
          } svch2;
          struct {
             unsigned short cr;

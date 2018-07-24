@@ -300,7 +300,7 @@ int HandlerInPack1( struct packet12 *pack, int size )
 */
         if( fs->nf == 18 ) 
 		{
-            memcpy( &outpack0.svch1.sach18, fs, sizeof(struct sac) );
+			memcpy( &outpack0.svch1.sach18, fs, sizeof(struct sac) );
        	    outpack0.svch1.cr++;
             //if( fsn > 4082 ) fsn = 4082;
 			if ((mode.rli1)&&(fs->kvi==9)) //включен режим опросов РЛИ и пришел РЛИ
@@ -331,7 +331,7 @@ int HandlerInPack1( struct packet12 *pack, int size )
 				if (verbose>0) 
 				{
 					//if ((n_str+1)!=((outpack0.svch1_rli.form6[outpack0.svch1_rli.num*203+1]&0xFF80)>>7))
-					printf("%d пакет рли1. fsn=%d. str=%d \n",outpack0.svch1_rli.num,fsn,(outpack0.svch1_rli.form6[outpack0.svch1_rli.num*203+1]&0xFF80)>>7);
+					//printf("%d пакет рли1. fsn=%d. str=%d \n",outpack0.svch1_rli.num,fsn,(outpack0.svch1_rli.form6[outpack0.svch1_rli.num*203+1]&0xFF80)>>7);
 				}	
           
 //	            memcpy( &outpack0.svch1_rli.form6[outpack0.svch1_rli.num*203],(char *)fs, 406); //form6 //24
@@ -343,6 +343,9 @@ int HandlerInPack1( struct packet12 *pack, int size )
 				//printf("nword=%d\n",outpack0.svch1_rli.nword);					
 				//printf("%d пакет рли1. fsn=%d\n",outpack0.svch1_rli.num,fsn);
 				outpack0.svch1_rli.num++;
+				//printf("size outpack0 = %d\n", sizeof(outpack0));
+				//printf( "SVCH1: SAC f=%d k=%d a=%d p=%d r=%d v=%d n=%d.\n", 
+               //fs->nf, fs->kvi, fsa, fsp, fsr, fsv, fsn );
 			}
 			else if (mode.scan1)
 				switch (fs->kvi)
@@ -354,7 +357,7 @@ int HandlerInPack1( struct packet12 *pack, int size )
 							//stat.link=0;
            				}
 
-						printf("nword=%d tki kvi=5 recieve\n",outpack0.svch1_no.nword);					
+						//printf("nword=%d tki kvi=5 recieve\n",outpack0.svch1_no.nword);					
 
 			            f18 = (struct form18 *)fs;
 						//printf(" fsn= %d \n ",f18->fsn);
@@ -368,7 +371,7 @@ int HandlerInPack1( struct packet12 *pack, int size )
 							outpack0.svch1.word[outpack0.svch1.nword+i]=f18->cf3[i];
 						outpack0.svch1_no.nword += f18->fsn-10;
 						//for(i=0;i<outpack0.svch1_no.nword;i++) printf("%04x ",outpack0.svch1.word[i]);printf("\n");
-						printf("nword=%d no kvi=5 recieve\n",outpack0.svch1_no.nword);					
+						//printf("nword=%d no kvi=5 recieve\n",outpack0.svch1_no.nword);					
 												
 						break;					
 					case 7 : case 8 :
@@ -393,7 +396,7 @@ int HandlerInPack1( struct packet12 *pack, int size )
         if( fs->nf == 199 ) {
             f199 = (struct form199 *)fs;
 			f193 = (struct form193 *)fs;
-			for(i=0;i<20;i++) {if (f199->f193[i]!=mode.f193[i]) {count++;printf("!");}printf("%x ",f199->f193[i]);}
+			for(i=0;i<20;i++) {if (f199->f193[i]!=mode.f193[i]) {count++;printf("!");}printf("%x m%x ",f199->f193[i],mode.f193[i]);}
 			printf("    errors=%d\n",count);
 			if (count==0) //если совпали отправленные и полученные
 			{

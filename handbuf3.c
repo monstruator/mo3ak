@@ -73,7 +73,7 @@ int HandlerInBuf3( void )
             outpack3.nsave = outpack3.nload = 0;
             stat.in |= FLAG_BUF3;
             CheckStatus();
-            ControlLed3( 0 );
+            ControlLed3( 1 );
          }
          SendOutPack3();
          inbuf3step = STEP_MARK;
@@ -407,7 +407,7 @@ int SendOutPack3( void )
          outpack3.nsave = outpack3.nload = 0;
          stat.in |= FLAG_BUF3;
          CheckStatus();
-         ControlLed3( 0 );
+         ControlLed3( 1 );
       }
       return( outpack3.buf[i].size ); 
    }

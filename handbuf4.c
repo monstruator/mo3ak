@@ -72,7 +72,7 @@ int HandlerInBuf4( void )
             outpack4.nsave = outpack4.nload = 0;
             stat.in |= FLAG_BUF4;
             CheckStatus();
-            ControlLed3( 0 );
+            ControlLed3( 1 );
          }
          SendOutPack4();
          inbuf4step = STEP_MARK;
@@ -339,7 +339,7 @@ int SendOutPack4( void )
          outpack4.nsave = outpack4.nload = 0;
          stat.in |= FLAG_BUF4;
          CheckStatus();
-         ControlLed3( 0 );
+         ControlLed3( 1 );
       }
       return( outpack4.buf[i].size ); 
    }

@@ -188,7 +188,7 @@ void main( int argc, char **argv )
 
    ControlLed1( 0 );
    ControlLed2( 0 );
-   ControlLed3( 0 );
+   ControlLed3( 1 );
    ControlLed4( 0 );
    ControlLed5( 0 );
    ArmSelect();

@@ -229,7 +229,7 @@ int HandlerCmd1mo3a( int param1 , int param2 )
 	if (param2==0)	//mo1ak
 	{	
 		BU2_K6(0x11); //0x11
-		BU2_K7(0x05); //!!!   1
+		BU2_K7(0x01); //!!!   1
     	stat.out |= FLAG_BUF4;
     	ControlLed3( 1 );
 	}
@@ -425,11 +425,11 @@ int HandlerCmd3mo3a( int param )
 //---------- Outpack4 (cmd3) -установка КАР---------
 	  switch( param ) {
 	   case 5:      i=0x02;      break; //поправлено 8.03.17 под работающее значение КАР
-	   case 6:      i=0x04;      break;
-	   case 1:      i=0x08;      break;
-	   case 2:      i=0x10;      break;
-	   case 3:      i=0x20;      break;
-	   case 4:      i=0x40;      break;
+	   case 6:      i=0x06;      break;
+	   case 1:      i=0x04;      break;
+	   case 2:      i=0x05;      break;
+	   case 3:      i=0x06;      break;
+	   case 4:      i=0x01;      break;
 	   default:     i=0x01;      break;
 	   }
 		BU2_K7(i);
@@ -1946,7 +1946,7 @@ int HandlerCmd65mo3a( int param1 , int param2 )
    struct form11 *f11;
    struct packet34 *p34;
 
-   if( verbose > 0 )  printf( "HandlerCmd65mo3a: param1=%08x\n", param1 );
+   if( verbose > 0 )  printf( "HandlerCmd65mo3a: param1=%08x, param2=%08x\n", param1 , param2);
 //---------- Outpack1 (cmd65) ----------
    i = outpack1.nsave;
    h12 = (struct header12 *)outpack1.buf[i].data;
@@ -2049,7 +2049,11 @@ int HandlerCmd65mo3a( int param1 , int param2 )
 		    outpack4.buf[i].cmd = BUF3KIT_CMD_BLK4;
 		    outpack4.nsave++;
    			break;	 	
-		case 4:		case 6:		case 7:		case 8:
+		case 4:		
+			printf("FK2\n");
+			BU2_K6(0x11);
+			break;
+		case 6:		case 7:		case 8:
 		case 9:				BU2_K6(0x21);		break;
 		case 5 : 			BU2_K6(0x11);		break;
 	}
@@ -2790,7 +2794,7 @@ int HandlerCmd92mo3a( int param1 , int param2 )
    struct packet34 *p34;
    struct packet56 *p56;
 
-   if( verbose > 0 ) printf( "HandlerCmd92mo3a: param1=%x\n", param1 );
+   if( verbose > 0 ) printf( "HandlerCmd92mo3a: param1=%x\ param2=%x\n", param1, param2 );
 //---------- Outpack1 (cmd92) ----------
    if( ( param1 == 1 ) || ( param1 == 3 ) || ( param1 == 5 ) || ( param1 == 9 ) ) {
       i = outpack1.nsave;
@@ -2829,18 +2833,28 @@ int HandlerCmd92mo3a( int param1 , int param2 )
             f11->x1 = 0;
             break;
          case 5:
-            f11->ku0 = 0; //RAB
+            /*f11->ku0 = 1; //FK?      //!!!!!!!!!!!!!!!!!!!!!!!0; //RAB
             f11->ku1 = 1; //PRD-ON
             f11->ku2 = 0; //PRM-OFF
             f11->x0 = 0;
-            f11->x1 = 1;
+            f11->x1 = 1;*/
+			f11->ku0 = 1; //FK
+			f11->ku1 = 1; //PRD-ON
+			f11->ku2 = 0; //PRM-OFF
+			f11->ku3 = 0; //TKI
+			f11->ku4 = 1; //FM1
+	//      f11->ku7 = 0; //PRD-0dB
+			f11->ku8 = param1; //FK-2
+			f11->ku9z0 = 1; //ZAPROS-0
+			f11->x0 = 1;
+			f11->x1 = 0;
             break;
          default:
             break;
          }
          f11->ku3 = 0; //TKI
          f11->ku4 = 1; //FM1
-//         f11->ku7 = 0; //PRD-0dB
+         f11->ku7 = 0; //PRD-0dB
          switch( param1 ) {
          case 1:   f11->ku8 = 0; //FK-0
             break;
@@ -2940,7 +2954,6 @@ int HandlerCmd92mo3a( int param1 , int param2 )
 	{
 		if (param2==0)  BU1_K7(0);//MO3AK
 		else 			BU1_K7(1);//MO1K
-
 		stat.out |= FLAG_BUF3;
 		ControlLed3( 1 );
 	}
@@ -3018,7 +3031,7 @@ int HandlerCmd92mo3a( int param1 , int param2 )
    }
 
 	if(( param1 == 5 ) && (param2==0)) {
-		BU2_K6(0x01);
+		BU2_K6(0x0F);
 
 		    i = outpack4.nsave;
 	    	p34 = (struct packet34 *)outpack4.buf[i].data;
@@ -3176,10 +3189,10 @@ int HandlerCmd93mo3a( int param0, int param1, int param2, int param3 )
 	  f193->t1 = 0x00;
       f193->t2 = 0x1d;
       f193->kfs = 43;
-	  f193->x = (inpack0.x/614)*(1<<14); 
-	  f193->y = (inpack0.y/614)*(1<<14); 
-	  f193->kurs = (inpack0.k*53.2753/180)*(1<<15); 
-	  f193->speed = (inpack0.speed/512)*(1<<15); 
+	  f193->x = 0;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!(inpack0.x/614)*(1<<14); 
+	  f193->y = 0;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!(inpack0.y/614)*(1<<14); 
+	  f193->kurs = 0;//!!!!!!!!!!!!!!!!!!!!!!!!!(inpack0.k*53.2753/180)*(1<<15); 
+	  f193->speed = 0;//!!!!!!!!!!!!!!!!!!!!!!!!(inpack0.speed/512)*(1<<15); 
 
       outpack1.buf[i].size = sizeof(struct header12) + sizeof(struct form193);
       outpack1.buf[i].cmd = BUF3KIT_CMD_OUT1;
@@ -7126,10 +7139,10 @@ int HandlerCmd101mo3a( int param0, int param1, int param2)
 
   switch( param0 ) {
    case 0:  
-			   	//mode.rli1 = 1; 
+			   	mode.rli1 = 1; 
 	   			break; 
  case 1:    
-				//mode.rli2 = 1;	
+				mode.rli2 = 1;	
 			    break;
    case 2:      mode.recv3 = 1;      break;
    default:
